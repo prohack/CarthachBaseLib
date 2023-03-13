@@ -1,0 +1,92 @@
+plugins {
+    id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
+}
+if (rootProject.ext.isInDeveloper){
+    apply plugin: 'com.android.application'
+}else{
+    apply plugin: 'com.android.library'
+}
+
+android {
+    namespace 'com.carthach.base'
+    compileSdk rootProject.ext.completeSDKVersion
+
+    defaultConfig {
+        if (rootProject.ext.isInDeveloper){
+            applicationId "com.carthach.base"
+        }
+        minSdk rootProject.ext.minSDKVersion
+        targetSdk rootProject.ext.tragetSDKVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main{
+            if (rootProject.ext.isInDeveloper.toBoolean()){
+                manifest.srcFile 'src/main/module/AndroidManifest.xml'
+            }else{
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+            }
+        }
+    }
+    buildFeatures {
+        viewBinding true
+    }
+
+}
+
+dependencies {
+
+    implementation "androidx.core:core-ktx:${rootProject.ext.ktxCoreVersion}"
+    implementation "androidx.appcompat:appcompat:${rootProject.ext.appcompatVersion}"
+    implementation "com.google.android.material:material:${rootProject.ext.materialVersion}"
+    if (rootProject.ext.isInDeveloper){
+        implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    }
+    testImplementation "junit:junit:${rootProject.ext.junitVersion}"
+    androidTestImplementation "androidx.test.ext:junit:${rootProject.ext.junitExtVersion}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.ext.espressoVersion}"
+
+
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:${rootProject.ext.lifecycleKtxVersion}"
+    api "androidx.lifecycle:lifecycle-runtime-ktx:${rootProject.ext.lifecycleKtxVersion}"
+    api "com.squareup.retrofit2:retrofit:${rootProject.ext.RetrofitVersion}"
+    api "com.squareup.retrofit2:converter-gson:${rootProject.ext.GsonVersion}"
+    api "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.OkHttpinterceptorVersion}"
+    api "com.github.getActivity:XXPermissions:${rootProject.ext.XXPermissionsVersion}"
+    api "com.github.getActivity:ToastUtils:${rootProject.ext.ToastUtilsVersion}"
+
+}
+afterEvaluate{
+    android.libraryVariants.each{variant->
+        publishing.publications.create(variant.name,MavenPublication){
+            from components.findByName(variant.name)
+
+            groupId = 'com.carthach'
+            artifactId = 'lib-base'
+            version = '1.0.0'
+        }
+
+    }
+}
+
+
+
