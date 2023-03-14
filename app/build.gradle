@@ -68,6 +68,8 @@ dependencies {
 
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:${rootProject.ext.lifecycleKtxVersion}"
     api "androidx.lifecycle:lifecycle-runtime-ktx:${rootProject.ext.lifecycleKtxVersion}"
+    implementation "androidx.activity:activity-ktx:${rootProject.ext.activityKtxVersion}"
+    implementation "androidx.fragment:fragment-ktx:${rootProject.ext.fragmentKtxVersion}"
     api "com.squareup.retrofit2:retrofit:${rootProject.ext.RetrofitVersion}"
     api "com.squareup.retrofit2:converter-gson:${rootProject.ext.GsonVersion}"
     api "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.OkHttpinterceptorVersion}"
