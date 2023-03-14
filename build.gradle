@@ -4,26 +4,3 @@ plugins {
     id 'com.android.library' version '7.4.2' apply false
     id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
 }
-ext{
-    isInDeveloper = false
-    minSDKVersion = 24
-    completeSDKVersion = 33
-    tragetSDKVersion = 33
-
-    ktxCoreVersion = "1.9.0"
-    appcompatVersion = "1.6.1"
-    materialVersion = "1.8.0"
-    junitVersion = "4.13.2"
-    junitExtVersion = "1.1.5"
-    espressoVersion = "3.5.1"
-    lifecycleKtxVersion = "2.6.0"
-    activityKtxVersion = "1.6.1"
-    fragmentKtxVersion = "1.5.5"
-    RetrofitVersion = "2.9.0"
-    GsonVersion = "2.9.0"
-    OkHttpinterceptorVersion = "3.9.0"
-    XXPermissionsVersion = "16.8"
-    ToastUtilsVersion = "11.2"
-
-
-}

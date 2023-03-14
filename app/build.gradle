@@ -1,8 +1,32 @@
+
 plugins {
     id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
 }
-if (rootProject.ext.isInDeveloper){
+
+
+ext{
+    isInDeveloper = false
+    minSDKVersion = 24
+    completeSDKVersion = 33
+    tragetSDKVersion = 33
+    ktxCoreVersion = "1.9.0"
+    appcompatVersion = "1.6.1"
+    materialVersion = "1.8.0"
+    junitVersion = "4.13.2"
+    junitExtVersion = "1.1.5"
+    espressoVersion = "3.5.1"
+    lifecycleKtxVersion = "2.6.0"
+    activityKtxVersion = "1.6.1"
+    fragmentKtxVersion = "1.5.5"
+    RetrofitVersion = "2.9.0"
+    GsonVersion = "2.9.0"
+    OkHttpinterceptorVersion = "3.9.0"
+    XXPermissionsVersion = "16.8"
+    ToastUtilsVersion = "11.2"
+}
+
+if (isInDeveloper){
     apply plugin: 'com.android.application'
 }else{
     apply plugin: 'com.android.library'
@@ -10,14 +34,14 @@ if (rootProject.ext.isInDeveloper){
 
 android {
     namespace 'com.carthach.base'
-    compileSdk rootProject.ext.completeSDKVersion
+    compileSdk completeSDKVersion
 
     defaultConfig {
-        if (rootProject.ext.isInDeveloper){
+        if (isInDeveloper){
             applicationId "com.carthach.base"
         }
-        minSdk rootProject.ext.minSDKVersion
-        targetSdk rootProject.ext.tragetSDKVersion
+        minSdk minSDKVersion
+        targetSdk tragetSDKVersion
         versionCode 1
         versionName "1.0"
 
@@ -40,7 +64,7 @@ android {
 
     sourceSets {
         main{
-            if (rootProject.ext.isInDeveloper.toBoolean()){
+            if (isInDeveloper){
                 manifest.srcFile 'src/main/module/AndroidManifest.xml'
             }else{
                 manifest.srcFile 'src/main/AndroidManifest.xml'
@@ -55,26 +79,26 @@ android {
 
 dependencies {
 
-    implementation "androidx.core:core-ktx:${rootProject.ext.ktxCoreVersion}"
-    implementation "androidx.appcompat:appcompat:${rootProject.ext.appcompatVersion}"
-    implementation "com.google.android.material:material:${rootProject.ext.materialVersion}"
-    if (rootProject.ext.isInDeveloper){
+    implementation "androidx.core:core-ktx:$ktxCoreVersion"
+    implementation "androidx.appcompat:appcompat:$appcompatVersion"
+    implementation "com.google.android.material:material:$materialVersion"
+    if (isInDeveloper){
         implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     }
-    testImplementation "junit:junit:${rootProject.ext.junitVersion}"
-    androidTestImplementation "androidx.test.ext:junit:${rootProject.ext.junitExtVersion}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.ext.espressoVersion}"
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$junitExtVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
 
 
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:${rootProject.ext.lifecycleKtxVersion}"
-    api "androidx.lifecycle:lifecycle-runtime-ktx:${rootProject.ext.lifecycleKtxVersion}"
-    implementation "androidx.activity:activity-ktx:${rootProject.ext.activityKtxVersion}"
-    implementation "androidx.fragment:fragment-ktx:${rootProject.ext.fragmentKtxVersion}"
-    api "com.squareup.retrofit2:retrofit:${rootProject.ext.RetrofitVersion}"
-    api "com.squareup.retrofit2:converter-gson:${rootProject.ext.GsonVersion}"
-    api "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.OkHttpinterceptorVersion}"
-    api "com.github.getActivity:XXPermissions:${rootProject.ext.XXPermissionsVersion}"
-    api "com.github.getActivity:ToastUtils:${rootProject.ext.ToastUtilsVersion}"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleKtxVersion"
+    api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleKtxVersion"
+    implementation "androidx.activity:activity-ktx:$activityKtxVersion"
+    implementation "androidx.fragment:fragment-ktx:$fragmentKtxVersion"
+    api "com.squareup.retrofit2:retrofit:$RetrofitVersion"
+    api "com.squareup.retrofit2:converter-gson:$GsonVersion"
+    api "com.squareup.okhttp3:logging-interceptor:$OkHttpinterceptorVersion"
+    api "com.github.getActivity:XXPermissions:$XXPermissionsVersion"
+    api "com.github.getActivity:ToastUtils:$ToastUtilsVersion"
 
 }
 afterEvaluate{
